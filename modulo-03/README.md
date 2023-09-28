@@ -35,7 +35,9 @@
 - Grid Layout
 
 ##### Projeto
-- [Replica da Tela do YouTube](youtube/index.html)
+- Replica da Tela do YouTube
+  - [Código](youtube/index.html)
+  - [Ver ao vivo](https://elainefs.github.io/programador-web-ifto-2023/modulo-03/youtube)
 
 ### Aula 05
 #### Tópicos abordados:
@@ -46,7 +48,9 @@
 - Variáveis no CSS
 
 ##### Projetos
-- [Cartas de baralho](cartas-baralho/index.html)
+- Cartas de baralho
+  - [Código](cartas-baralho/index.html)
+  - [Ver ao vivo](https://elainefs.github.io/programador-web-ifto-2023/modulo-03/cartas-baralho)
 
 ### Aula 06
 #### Tópicos abordados:
@@ -54,9 +58,15 @@
 - Gradientes
 
 ##### Projetos
-- [Bandeira do Brasil Animada](bandeira-animada/index.html)
-- [Tela de Login com Animação](login-animado/index.html)
+- Bandeira do Brasil Animada
+  - [Código](bandeira-animada/index.html)
+  - [Ver ao vivo](https://elainefs.github.io/programador-web-ifto-2023/modulo-03/bandeira-animada/)
+- Tela de Login com Animação
+  - [Código](login-animado/index.html)
+  - [Ver ao vivo](https://elainefs.github.io/programador-web-ifto-2023/modulo-03/login-animado)
 
 ### Aula 07
 #### Tópicos abordados:
-- [Projeto Currículo](projeto-curriculo/index.html)
+- Projeto Currículo
+  - [Código](projeto-curriculo/index.html)
+  - [Ver ao vivo](https://elainefs.github.io/programador-web-ifto-2023/modulo-03/projeto-curriculo)
