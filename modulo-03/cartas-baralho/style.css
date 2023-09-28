@@ -1,0 +1,59 @@
+.carta {
+  --ouros: red;
+  --paus: black;
+  --espadas: black;
+  --copas: red;
+  border: 5px solid;
+  width: 200px;
+  height: 300px;
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+  transform: rotate(20deg);
+}
+
+.carta > span {
+  padding: 10px;
+}
+
+.carta > span:nth-child(2) {
+  font-size: 100px;
+  text-align: center;
+}
+
+.carta > span:last-child {
+  transform: rotate(180deg);
+}
+
+.carta.copas {
+  color: var(--copas);
+  top: 100px;
+  left: 100px;
+}
+
+.carta.espadas {
+  color: var(--espadas);
+  top: 200px;
+  left: 200px;
+}
+
+.carta.ouros {
+  color: var(--ouros);
+  top: 300px;
+  left: 300px;
+}
+
+.carta.paus {
+  color: var(--paus);
+  top: 400px;
+  left: 400px;
+}
+
+.carta:hover {
+  z-index: 2;
+  cursor: pointer;
+}

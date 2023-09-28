@@ -1,0 +1,70 @@
+.login {
+  width: 350px;
+  height: 300px;
+  margin: 100px auto;
+  background-color: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.contem {
+  background-color: #333333;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 5px;
+  position: absolute;
+  z-index: 2;
+}
+
+.contem,
+h3 {
+  color: white;
+  font-size: 26px;
+  margin-bottom: 0;
+  font-family: sans-serif;
+}
+
+.contem input {
+  padding: 5px;
+  outline: none;
+}
+
+.contem button {
+  font-size: 16px;
+  padding: 5px 15px;
+  background-color: #4444ce;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+
+.login::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 560px;
+  height: 50px;
+  background: linear-gradient(to right, #18e, #2f8);
+  transform: rotate(320deg) translateY(-50px);
+  z-index: 1;
+}
+
+.login:hover:after {
+  animation: move-borda 1.5s ease;
+}
+
+@keyframes move-borda {
+  from {
+    transform: rotate(320deg) translateY(-100px);
+  }
+  to {
+    transform: rotate(320deg) translateY(400px);
+  }
+}

@@ -1,0 +1,122 @@
+.bandeira {
+  width: 250px;
+  height: 150px;
+  animation: mover 2s linear;
+}
+
+.bandeira.brasil {
+  background-color: green;
+  position: fixed;
+  top: 20px;
+  left: calc(50% - 125px);
+}
+
+.brasil > .losango {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.brasil > .losango::before,
+.brasil > .losango::after {
+  content: "";
+  position: absolute;
+  border-left: 105px solid transparent;
+  border-right: 105px solid transparent;
+  left: 20px;
+}
+
+.brasil > .losango::before {
+  border-bottom: 65px solid #ffe11f;
+  top: 10px;
+}
+
+.brasil > .losango::after {
+  border-top: 65px solid #ffe11f;
+  bottom: 10px;
+}
+
+.brasil > .losango > .circulo {
+  width: 0; /* 80px;*/
+  height: 0; /* 80px;*/
+  background-color: blue;
+  position: absolute;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+  z-index: 2;
+  border-radius: 50%;
+  overflow: hidden;
+  animation-name: aumentar;
+  animation-duration: 2s;
+  animation-delay: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.brasil > .losango > .circulo::before,
+.brasil > .losango > .circulo::after {
+  content: "";
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 40px;
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  transform: rotate(14deg);
+}
+
+.brasil > .losango > .circulo::before {
+  margin-left: -48px;
+  margin-top: -20px;
+  background-color: #fff;
+  animation: aparecer 2s linear 4s infinite alternate;
+}
+
+.brasil > .losango > .circulo::after {
+  background-color: blue;
+  margin-left: -48px;
+  margin-top: -10px;
+}
+
+@keyframes aparecer {
+  from {
+    background-color: #ffffff00;
+  }
+
+  to {
+    background-color: #ffffff;
+  }
+}
+
+@keyframes aumentar {
+  0% {
+    width: 0;
+    height: 0;
+  }
+
+  50% {
+    width: 40px;
+    height: 40px;
+  }
+
+  100% {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@keyframes mover {
+  0% {
+    top: 100%;
+  }
+  33% {
+    top: 66%;
+  }
+  66% {
+    top: 33%;
+  }
+  100% {
+    top: 20px;
+  }
+}

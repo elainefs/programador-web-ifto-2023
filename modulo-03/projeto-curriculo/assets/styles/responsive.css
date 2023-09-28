@@ -1,0 +1,57 @@
+@media only screen and (max-width: 720px) {
+  #about {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #about .introduction > * {
+    width: 100%;
+  }
+
+  #about .introduction > h1,
+  #about .introduction > h2,
+  #about .introduction > h3 {
+    text-align: center;
+  }
+
+  #contact {
+    width: 100%;
+    height: auto;
+    border: none;
+  }
+
+  #education {
+    width: 100%;
+    border-left: none;
+  }
+
+  #education > .legend {
+    width: 320px;
+    left: calc(50% - 160px);
+    text-align: center;
+  }
+
+  #education > ul {
+    max-width: none;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #contact > h3 {
+    font-family: "Poppins-ExtraBold";
+    width: 320px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 12px;
+    background-color: var(--title-color);
+    color: var(--primary-color);
+    padding-left: 15px;
+    font-size: 1.5rem;
+    position: absolute;
+    top: -38px;
+    left: calc(50% - 160px);
+    text-align: center;
+  }
+}

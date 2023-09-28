@@ -1,0 +1,102 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #000000;
+  color: white;
+  font-family: sans-serif;
+  height: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-areas:
+    "t t t t"
+    "v v v r"
+    "f f f f";
+  grid-template-rows: 70px 1fr 30px;
+}
+
+#topo {
+  background-color: rgba(83, 82, 82, 0.5);
+  grid-area: t;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+#menu {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+#menu li a {
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#menu li a:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border-radius: 50px;
+}
+
+#logo {
+  line-height: 50px;
+}
+
+#logo img {
+  height: 50px;
+  float: left;
+  margin-right: 20px;
+}
+
+#player {
+  grid-area: v;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#player textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+}
+
+#relacionados {
+  grid-area: r;
+  padding: 20px;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+#relacionados ul li{
+  margin-bottom: 10px;
+  border: 10px solid rgba(83, 82, 82, 0.5);
+}
+
+#relacionados ul li:hover{
+  border-color: white;
+}
+
+#relacionados img {
+  width: 100%;
+}
+
+#footer {
+  grid-area: f;
+  text-align: center;
+  line-height: 30px;
+  font-size: 12px;
+  background-color: rgba(83, 82, 82, 0.5);
+}
