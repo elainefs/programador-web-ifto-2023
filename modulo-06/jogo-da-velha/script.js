@@ -44,7 +44,7 @@ function calcularResultado() {
   jogadas_possiveis.push([2, 4, 6]);
 
   gameover = false;
-  jogadas_possiveis.forEach((i) => {
+  jogadas_possiveis.forEach((i, index) => {
     if (
       jogadas[i[0]] == jogadas[i[1]] &&
       jogadas[i[1]] == jogadas[i[2]] &&
@@ -52,6 +52,10 @@ function calcularResultado() {
     ) {
       textvez.innerHTML = `Parabéns o ${jogadas[i[0]]} ganhou!`;
       gameover = true;
+      colorir(apostas[i[0]]);
+      colorir(apostas[i[1]]);
+      colorir(apostas[i[2]]);
+
     }
   });
   if (velha) {
@@ -61,4 +65,9 @@ function calcularResultado() {
   }
 
   return gameover;
+}
+
+function colorir(element){
+  element.style.backgroundColor = 'green'
+  element.style.color = 'white'
 }
