@@ -11,6 +11,10 @@ jogo.addEventListener("click", function (event) {
     vez = vez == "X" ? "O" : "X";
     textvez.textContent = `Vez do ${vez}`;
     start = !calcularResultado();
+    if (start) {
+      computador();
+      start = !calcularResultado();
+    }
   }
   if (!start) {
     document.getElementById("reset").style.display = "block";
@@ -29,12 +33,12 @@ function calcularResultado() {
   });
 
   let jogadas_possiveis = [];
-  //colunas
+  //linhas
   jogadas_possiveis.push([0, 1, 2]);
   jogadas_possiveis.push([3, 4, 5]);
   jogadas_possiveis.push([6, 7, 8]);
 
-  //linhas
+  //colunas
   jogadas_possiveis.push([0, 3, 6]);
   jogadas_possiveis.push([1, 4, 7]);
   jogadas_possiveis.push([2, 5, 8]);
@@ -55,7 +59,6 @@ function calcularResultado() {
       colorir(apostas[i[0]]);
       colorir(apostas[i[1]]);
       colorir(apostas[i[2]]);
-
     }
   });
   if (velha) {
@@ -67,7 +70,20 @@ function calcularResultado() {
   return gameover;
 }
 
-function colorir(element){
-  element.style.backgroundColor = 'green'
-  element.style.color = 'white'
+function colorir(element) {
+  element.style.backgroundColor = "green";
+  element.style.color = "white";
+}
+
+function computador() {
+  let apostas = jogo.querySelectorAll("td .content");
+  let position = Math.round(Math.random() * 8);
+  if (apostas[position].textContent == "") {
+    apostas[position].textContent = vez;
+    apostas[position].parentNode.querySelector(".fundo").textContent = "";
+    vez = vez == "X" ? "O" : "X";
+    return true;
+  } else {
+    return computador();
+  }
 }
