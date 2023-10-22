@@ -2,9 +2,12 @@ const screen = document.getElementsByTagName("body")[0];
 const game = new Game();
 let nave;
 const moveSpeed = 20;
-const enemiesMax = 0;
+const enemiesMax = 10;
 const enemies = [];
 const allyLaser = [];
+const enemiesLaser = [];
+const laserAcceleration = 3;
+const laserDelay = 10;
 let interval;
 
 screen.addEventListener("keyup", function (event) {
@@ -68,6 +71,14 @@ function Game() {
       enemies.forEach((enemy) => {
         enemy.animation();
       });
+      managerLasers(allyLaser);
+      managerLasers(enemiesLaser);
+      let raffle = Math.round(Math.random() * laserDelay);
+      if(raffle < enemies.length) {
+        if(enemies[raffle].y() > 0){
+          enemies[raffle].fire();
+        }
+      }
     }, 100);
   };
 
@@ -152,6 +163,14 @@ function EnemyNave(image = "cp1") {
     }
   };
 
+  this.fire = () => {
+    laser = new Laser(true);
+    let x = this.x() + this.w() / 2 - laser.w() / 2;
+    let y = this.y() + this.h() + 1;
+    laser.setXY(x, y);
+    enemiesLaser.push(laser);
+  };
+
   this.onload(this.setBeginPosition);
 }
 
@@ -162,9 +181,33 @@ function element(tag, classe) {
   return element;
 }
 
-function Laser() {
+function Laser(enemy = false) {
   let div = element("div", "laser");
+  let displacement = -1;
   Ovni.call(this, div);
+  if (enemy) {
+    div.classList.add("enemy");
+    displacement = 1;
+  }
+
+  this.animation = () => {
+    this.setXY(
+      this.x(),
+      this.y() + moveSpeed * laserAcceleration * displacement
+    );
+  };
+
+  this.remove = () => div.remove();
+}
+
+function managerLasers(lasers) {
+  lasers.forEach((item, index, list) => {
+    item.animation();
+    if(item.y() > game.h() + 10 || item.y() + item.h() + 10 < 0){
+      item.remove();
+      list.splice(index, 1);
+    }
+  });
 }
 
 game.start();
