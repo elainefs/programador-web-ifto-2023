@@ -2,14 +2,20 @@ const screen = document.getElementsByTagName("body")[0];
 const game = new Game();
 let nave;
 const moveSpeed = 10;
-const enemiesMax = 10;
+const enemiesMax = 0;
 const enemies = [];
+const allyLaser = [];
+let interval;
 
 screen.addEventListener("keyup", function (event) {
   if (event.key == "Enter") {
     game.isPause() ? game.start() : game.pause("Pause");
   } else if (event.key == "p") {
     game.pause("Pause");
+  }
+
+  if (event.key == " ") {
+    nave.fire();
   }
 });
 
@@ -54,9 +60,9 @@ function Game() {
       }
     }
     interval = setInterval(() => {
-      enemies.forEach(enemy => {
+      enemies.forEach((enemy) => {
         enemy.animation();
-      })
+      });
     }, 100);
   };
 
@@ -70,14 +76,11 @@ function Game() {
   };
 }
 
-function Nave(image = "wt") {
-  let div = document.createElement("div");
-  div.classList.add("nave");
-  screen.appendChild(div);
-
-  let nave = document.createElement("img");
-  nave.setAttribute("src", `assets/img/${image}.png`);
-  div.appendChild(nave);
+function Ovni(element) {
+  this.w = () => element.getBoundingClientRect().width;
+  this.h = () => element.getBoundingClientRect().height;
+  this.x = () => element.getBoundingClientRect().x;
+  this.y = () => element.getBoundingClientRect().y;
 
   this.setXY = (x, y) => {
     if (x < 0) {
@@ -85,21 +88,33 @@ function Nave(image = "wt") {
     } else if (x > game.w() - this.w()) {
       x = game.w() - this.w();
     }
-    div.style.left = `${x}px`;
-    div.style.top = `${y}px`;
+    element.style.left = `${x}px`;
+    element.style.top = `${y}px`;
   };
+}
 
-  this.w = () => div.getBoundingClientRect().width;
-  this.h = () => div.getBoundingClientRect().height;
-  this.x = () => div.getBoundingClientRect().x;
-  this.y = () => div.getBoundingClientRect().y;
+function Nave(image = "wt") {
+  let div = element("div", "nave");
+  Ovni.call(this, div);
+
+  let naveImg = document.createElement("img");
+  naveImg.setAttribute("src", `assets/img/${image}.png`);
+  div.appendChild(naveImg);
 
   let beginPosition = () => {
     this.setXY(game.w() / 2 - this.w() / 2, game.h() - this.h() - 10);
   };
 
-  nave.onload = beginPosition;
-  this.onload = (fn) => (nave.onload = fn);
+  naveImg.onload = beginPosition;
+  this.onload = (fn) => (naveImg.onload = fn);
+
+  this.fire = () => {
+    laser = new Laser();
+    let x = this.x() + this.w() / 2 - laser.w() / 2;
+    let y = this.y() - laser.h() - 1;
+    laser.setXY(x, y);
+    allyLaser.push(laser);
+  };
 }
 
 function EnemyNave(image = "cp1") {
@@ -113,12 +128,24 @@ function EnemyNave(image = "cp1") {
 
   this.animation = () => {
     this.setXY(this.x(), this.y() + moveSpeed);
-    if(this.y() > game.h() + 20) {
+    if (this.y() > game.h() + 20) {
       this.setBeginPosition();
     }
   };
 
   this.onload(this.setBeginPosition);
+}
+
+function element(tag, classe) {
+  let element = document.createElement(tag);
+  element.classList.add(classe);
+  screen.appendChild(element);
+  return element;
+}
+
+function Laser() {
+  let div = element("div", "laser");
+  Ovni.call(this, div);
 }
 
 game.start();

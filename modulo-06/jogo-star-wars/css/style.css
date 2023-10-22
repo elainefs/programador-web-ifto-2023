@@ -38,3 +38,52 @@ body {
   z-index: 3;
   border: 1px solid red;
 }
+
+.laser {
+  position: fixed;
+  z-index: 4;
+  width: 2px;
+  height: 25px;
+  background-color: #0000ff;
+  -webkit-animation: laser 1.5s ease-in-out infinite alternate;
+  -moz-animation: laser 1.5s ease-in-out infinite alternate;
+  animation: laser 1.5s ease-in-out infinite alternate;
+}
+
+.laser.enemy {
+  background-color: #ff0000;
+}
+
+/*glow for webkit*/
+@-webkit-keyframes laser {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0000ff,
+      0 0 70px #0000ff, 0 0 80px #0000ff, 0 0 100px #0000ff, 0 0 150px #0000ff;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #0000ff,
+      0 0 35px #0000ff, 0 0 40px #0000ff, 0 0 50px #0000ff, 0 0 75px #0000ff;
+  }
+}
+/*glow for mozilla*/
+@-moz-keyframes laser {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0000ff,
+      0 0 70px #0000ff, 0 0 80px #0000ff, 0 0 100px #0000ff, 0 0 150px #0000ff;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #0000ff,
+      0 0 35px #0000ff, 0 0 40px #0000ff, 0 0 50px #0000ff, 0 0 75px #0000ff;
+  }
+}
+/*glow*/
+@keyframes laser {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0000ff,
+      0 0 70px #0000ff, 0 0 80px #0000ff, 0 0 100px #0000ff, 0 0 150px #0000ff;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #0000ff,
+      0 0 35px #0000ff, 0 0 40px #0000ff, 0 0 50px #0000ff, 0 0 75px #0000ff;
+  }
+}
