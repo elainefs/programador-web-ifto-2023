@@ -140,7 +140,7 @@ function Nave(image = "wt") {
   this.onload = (fn) => (naveImg.onload = fn);
 }
 
-function GamerNave(image = "wt") {
+function GamerNave(image = "mf") {
   Nave.call(this, image);
   let displacement = 0;
 
@@ -166,7 +166,16 @@ function GamerNave(image = "wt") {
     this.setXY(this.x() + moveSpeed * displacement, this.y());
   };
 
-  this.collision = () => game.gameOver();
+  this.collision = () => {
+    game.gameOver();
+
+    let explosion = element("img", "explosion");
+    explosion.src = "assets/img/explosion-ally.gif";
+    explosion = new Ovni(explosion);
+    explosion.setXY(this.x() + 50, this.y());
+    nave.remove()
+    this.setBeginPosition();
+  };
 }
 
 function EnemyNave(image = "cp1") {
@@ -202,7 +211,7 @@ function EnemyNave(image = "cp1") {
     explosion = new Ovni(explosion);
     explosion.setXY(this.x(), this.y());
     this.setBeginPosition();
-    setTimeout(()=> {
+    setTimeout(() => {
       explosion.remove();
     }, 900);
   };
