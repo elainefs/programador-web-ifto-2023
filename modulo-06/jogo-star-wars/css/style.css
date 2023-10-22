@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#panel > h5 {
+  font-size: 2em;
+  color: #ff0000;
+  display: none; /*oculta Game Over*/
+}
+
+#scoreboard {
+  background-color: #fffa;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  display: none; /*oculta placar de Pontuação*/
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+#scoreboard > span {
+  font-size: 2rem;
+}
+
+.nave {
+  position: fixed;
+  z-index: 3;
+}
