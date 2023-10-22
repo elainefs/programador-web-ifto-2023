@@ -1,13 +1,13 @@
 const screen = document.getElementsByTagName("body")[0];
 const game = new Game();
 let nave;
-const moveSpeed = 20;
+const moveSpeed = 25;
 const enemiesMax = 10;
 const enemies = [];
 const allyLaser = [];
 const enemiesLaser = [];
 const laserAcceleration = 3;
-const laserDelay = 10;
+const laserDelay = 1;
 let interval;
 
 screen.addEventListener("keyup", function (event) {
@@ -41,6 +41,8 @@ function Game() {
   const scoreboard = document.getElementById("scoreboard");
   const panelMsg = document.querySelector(".msg");
 
+  let score = 0;
+
   let pause = true;
   this.isPause = () => pause;
 
@@ -52,7 +54,7 @@ function Game() {
     scoreboard.style.display = "flex";
     pause = false;
     if (nave == undefined) {
-      nave = new GamerNave(); //'mf' muda para millennium falcon
+      nave = new GamerNave('mf' ) ; //'mf' muda para millennium falcon
       for (let cont = 0; cont < enemiesMax; cont++) {
         let image = "cp1";
         switch (Math.round(Math.random() * 2)) {
@@ -74,11 +76,12 @@ function Game() {
       managerLasers(allyLaser);
       managerLasers(enemiesLaser);
       let raffle = Math.round(Math.random() * laserDelay);
-      if(raffle < enemies.length) {
-        if(enemies[raffle].y() > 0){
+      if (raffle < enemies.length) {
+        if (enemies[raffle].y() > 0) {
           enemies[raffle].fire();
         }
       }
+      managerCollision();
     }, 100);
   };
 
@@ -89,6 +92,20 @@ function Game() {
     pause = true;
     nave.moveStop();
     clearInterval(interval);
+  };
+
+  this.gameOver = () => {
+    this.pause("Game Over");
+    screen.addEventListener("keyup", function (event) {
+      if (event.key == "Enter") {
+        location.reload();
+      }
+    });
+  };
+
+  this.toScore = () => {
+    score++;
+    scoreboard.querySelector("span").textContent = score;
   };
 }
 
@@ -107,6 +124,9 @@ function Ovni(element) {
     element.style.left = `${x}px`;
     element.style.top = `${y}px`;
   };
+
+  this.collision = () => element.remove();
+  this.remove = () => element.remove();
 }
 
 function Nave(image = "wt") {
@@ -145,6 +165,8 @@ function GamerNave(image = "wt") {
   this.animation = () => {
     this.setXY(this.x() + moveSpeed * displacement, this.y());
   };
+
+  this.collision = () => game.gameOver();
 }
 
 function EnemyNave(image = "cp1") {
@@ -152,7 +174,6 @@ function EnemyNave(image = "cp1") {
   this.setBeginPosition = () => {
     let x = Math.round(Math.random() * (game.w() - this.w()));
     let y = Math.round(-this.h() - 10 - Math.random() * 1000);
-    // y = 50;
     this.setXY(x, y);
   };
 
@@ -172,6 +193,11 @@ function EnemyNave(image = "cp1") {
   };
 
   this.onload(this.setBeginPosition);
+
+  this.collision = () => {
+    this.setBeginPosition();
+    game.toScore();
+  };
 }
 
 function element(tag, classe) {
@@ -196,17 +222,41 @@ function Laser(enemy = false) {
       this.y() + moveSpeed * laserAcceleration * displacement
     );
   };
-
-  this.remove = () => div.remove();
 }
 
 function managerLasers(lasers) {
   lasers.forEach((item, index, list) => {
     item.animation();
-    if(item.y() > game.h() + 10 || item.y() + item.h() + 10 < 0){
+    if (item.y() > game.h() + 10 || item.y() + item.h() + 10 < 0) {
       item.remove();
       list.splice(index, 1);
     }
+  });
+}
+
+function managerCollision() {
+  let collision = function (obj1, obj2) {
+    let x = obj1.x() <= obj2.x() + obj2.w() && obj1.x() + obj1.w() >= obj2.x();
+    let y = obj1.y() <= obj2.y() + obj2.h() && obj1.y() + obj1.h() >= obj2.y();
+    if (x && y) {
+      obj1.collision();
+      obj2.collision();
+      return true;
+    }
+    return false;
+  };
+
+  enemies.forEach((enemy, enemyIndex, enemies) => {
+    allyLaser.forEach((laser, laserIndex, lasers) => {
+      if (collision(enemy, laser)) {
+        lasers.splice(laserIndex, 1);
+      }
+    });
+    collision(nave, enemy);
+  });
+
+  enemiesLaser.forEach((laser) => {
+    collision(nave, laser);
   });
 }
 
