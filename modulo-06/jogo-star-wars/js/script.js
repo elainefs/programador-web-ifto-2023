@@ -40,19 +40,24 @@ function Game() {
     pause = false;
     if (nave == undefined) {
       nave = new Nave(); //'mf' muda para millennium falcon
-      for(let cont = 0; cont < enemiesMax; cont++){
-        let image = 'cp1';
-        switch(Math.round(Math.random() * 2)){
+      for (let cont = 0; cont < enemiesMax; cont++) {
+        let image = "cp1";
+        switch (Math.round(Math.random() * 2)) {
           case 1:
-            image = 'iba';
+            image = "iba";
             break;
           case 2:
-            image = 'iy';
+            image = "iy";
             break;
         }
         enemies.push(new EnemyNave(image));
       }
     }
+    interval = setInterval(() => {
+      enemies.forEach(enemy => {
+        enemy.animation();
+      })
+    }, 100);
   };
 
   this.pause = (msg = "") => {
@@ -61,6 +66,7 @@ function Game() {
     panelMsg.style.display = "block";
     panelMsg.textContent = msg;
     pause = true;
+    clearInterval(interval);
   };
 }
 
@@ -100,10 +106,18 @@ function EnemyNave(image = "cp1") {
   Nave.call(this, image);
   this.setBeginPosition = () => {
     let x = Math.round(Math.random() * (game.w() - this.w()));
-    let y = Math.round(-this.h() - 10 - (Math.random() * 1000));
+    let y = Math.round(-this.h() - 10 - Math.random() * 1000);
     // y = 50;
     this.setXY(x, y);
   };
+
+  this.animation = () => {
+    this.setXY(this.x(), this.y() + moveSpeed);
+    if(this.y() > game.h() + 20) {
+      this.setBeginPosition();
+    }
+  };
+
   this.onload(this.setBeginPosition);
 }
 
