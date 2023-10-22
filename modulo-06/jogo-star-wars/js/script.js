@@ -1,13 +1,13 @@
 const screen = document.getElementsByTagName("body")[0];
 const game = new Game();
 let nave;
-const moveSpeed = 25;
+const moveSpeed = 10;
 const enemiesMax = 10;
 const enemies = [];
 const allyLaser = [];
 const enemiesLaser = [];
 const laserAcceleration = 3;
-const laserDelay = 1;
+const laserDelay = 20;
 let interval;
 
 screen.addEventListener("keyup", function (event) {
@@ -54,7 +54,7 @@ function Game() {
     scoreboard.style.display = "flex";
     pause = false;
     if (nave == undefined) {
-      nave = new GamerNave('mf' ) ; //'mf' muda para millennium falcon
+      nave = new GamerNave();
       for (let cont = 0; cont < enemiesMax; cont++) {
         let image = "cp1";
         switch (Math.round(Math.random() * 2)) {
@@ -82,7 +82,7 @@ function Game() {
         }
       }
       managerCollision();
-    }, 100);
+    }, 50);
   };
 
   this.pause = (msg = "") => {
@@ -195,8 +195,16 @@ function EnemyNave(image = "cp1") {
   this.onload(this.setBeginPosition);
 
   this.collision = () => {
-    this.setBeginPosition();
     game.toScore();
+
+    let explosion = element("img", "explosion");
+    explosion.src = "assets/img/explosion-enemy.gif";
+    explosion = new Ovni(explosion);
+    explosion.setXY(this.x(), this.y());
+    this.setBeginPosition();
+    setTimeout(()=> {
+      explosion.remove();
+    }, 900);
   };
 }
 
@@ -259,5 +267,3 @@ function managerCollision() {
     collision(nave, laser);
   });
 }
-
-game.start();
