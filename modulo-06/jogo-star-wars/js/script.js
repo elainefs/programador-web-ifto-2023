@@ -2,6 +2,8 @@ const screen = document.getElementsByTagName("body")[0];
 const game = new Game();
 let nave;
 const moveSpeed = 10;
+const enemiesMax = 10;
+const enemies = [];
 
 screen.addEventListener("keyup", function (event) {
   if (event.key == "Enter") {
@@ -11,15 +13,15 @@ screen.addEventListener("keyup", function (event) {
   }
 });
 
-screen.addEventListener('keydown', function(event) {
-  if(!game.isPause()){
-    if(event.key == 'ArrowLeft') {
+screen.addEventListener("keydown", function (event) {
+  if (!game.isPause()) {
+    if (event.key == "ArrowLeft") {
       nave.setXY(nave.x() - moveSpeed, nave.y);
-    } else if(event.key == 'ArrowRight') {
+    } else if (event.key == "ArrowRight") {
       nave.setXY(nave.x() + moveSpeed, nave.y);
     }
   }
-})
+});
 
 function Game() {
   const panel = document.getElementById("panel");
@@ -38,6 +40,18 @@ function Game() {
     pause = false;
     if (nave == undefined) {
       nave = new Nave(); //'mf' muda para millennium falcon
+      for(let cont = 0; cont < enemiesMax; cont++){
+        let image = 'cp1';
+        switch(Math.round(Math.random() * 2)){
+          case 1:
+            image = 'iba';
+            break;
+          case 2:
+            image = 'iy';
+            break;
+        }
+        enemies.push(new EnemyNave(image));
+      }
     }
   };
 
@@ -60,7 +74,7 @@ function Nave(image = "wt") {
   div.appendChild(nave);
 
   this.setXY = (x, y) => {
-    if(x < 0) {
+    if (x < 0) {
       x = 0;
     } else if (x > game.w() - this.w()) {
       x = game.w() - this.w();
@@ -79,6 +93,18 @@ function Nave(image = "wt") {
   };
 
   nave.onload = beginPosition;
+  this.onload = (fn) => (nave.onload = fn);
+}
+
+function EnemyNave(image = "cp1") {
+  Nave.call(this, image);
+  this.setBeginPosition = () => {
+    let x = Math.round(Math.random() * (game.w() - this.w()));
+    let y = Math.round(-this.h() - 10 - (Math.random() * 1000));
+    // y = 50;
+    this.setXY(x, y);
+  };
+  this.onload(this.setBeginPosition);
 }
 
 game.start();
