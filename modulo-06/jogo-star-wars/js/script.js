@@ -1,7 +1,7 @@
 const screen = document.getElementsByTagName("body")[0];
 const game = new Game();
 let nave;
-const moveSpeed = 10;
+const moveSpeed = 20;
 const enemiesMax = 0;
 const enemies = [];
 const allyLaser = [];
@@ -13,18 +13,22 @@ screen.addEventListener("keyup", function (event) {
   } else if (event.key == "p") {
     game.pause("Pause");
   }
-
-  if (event.key == " ") {
-    nave.fire();
+  if (!game.isPause()) {
+    if (event.key == " ") {
+      nave.fire();
+    }
+    if (event.key == "ArrowLeft" || event.key == "ArrowRight") {
+      nave.moveStop();
+    }
   }
 });
 
 screen.addEventListener("keydown", function (event) {
   if (!game.isPause()) {
     if (event.key == "ArrowLeft") {
-      nave.setXY(nave.x() - moveSpeed, nave.y);
+      nave.moveLeft();
     } else if (event.key == "ArrowRight") {
-      nave.setXY(nave.x() + moveSpeed, nave.y);
+      nave.moveRight();
     }
   }
 });
@@ -45,7 +49,7 @@ function Game() {
     scoreboard.style.display = "flex";
     pause = false;
     if (nave == undefined) {
-      nave = new Nave(); //'mf' muda para millennium falcon
+      nave = new GamerNave(); //'mf' muda para millennium falcon
       for (let cont = 0; cont < enemiesMax; cont++) {
         let image = "cp1";
         switch (Math.round(Math.random() * 2)) {
@@ -60,6 +64,7 @@ function Game() {
       }
     }
     interval = setInterval(() => {
+      nave.animation();
       enemies.forEach((enemy) => {
         enemy.animation();
       });
@@ -68,10 +73,10 @@ function Game() {
 
   this.pause = (msg = "") => {
     panel.style.display = "block";
-    // scoreboard.style.display = 'none';
     panelMsg.style.display = "block";
     panelMsg.textContent = msg;
     pause = true;
+    nave.moveStop();
     clearInterval(interval);
   };
 }
@@ -101,12 +106,18 @@ function Nave(image = "wt") {
   naveImg.setAttribute("src", `assets/img/${image}.png`);
   div.appendChild(naveImg);
 
+  this.onload = (fn) => (naveImg.onload = fn);
+}
+
+function GamerNave(image = "wt") {
+  Nave.call(this, image);
+  let displacement = 0;
+
   let beginPosition = () => {
     this.setXY(game.w() / 2 - this.w() / 2, game.h() - this.h() - 10);
   };
 
-  naveImg.onload = beginPosition;
-  this.onload = (fn) => (naveImg.onload = fn);
+  this.onload(beginPosition);
 
   this.fire = () => {
     laser = new Laser();
@@ -114,6 +125,14 @@ function Nave(image = "wt") {
     let y = this.y() - laser.h() - 1;
     laser.setXY(x, y);
     allyLaser.push(laser);
+  };
+
+  this.moveStop = () => (displacement = 0);
+  this.moveLeft = () => (displacement = -1);
+  this.moveRight = () => (displacement = 1);
+
+  this.animation = () => {
+    this.setXY(this.x() + moveSpeed * displacement, this.y());
   };
 }
 
