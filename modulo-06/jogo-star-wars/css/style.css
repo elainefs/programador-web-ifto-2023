@@ -13,7 +13,7 @@ body {
 #panel > h5 {
   font-size: 2em;
   color: #ff0000;
-  display: none; /*oculta Game Over*/
+  display: none; 
 }
 
 #scoreboard {
@@ -22,7 +22,7 @@ body {
   right: 0;
   top: 0;
   padding: 20px;
-  display: none; /*oculta placar de Pontuação*/
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
