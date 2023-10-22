@@ -84,3 +84,9 @@
 - Conceitualizando POO - Herança, Polimorfismo, Classes Abstratas e Interfaces
 - Javascript - Objetos sem Classe
 - Javascript - Transformando funções em Classes
+
+### Aula 09
+#### Tópicos abordados:
+- Projeto Jogo Star Wars
+  - [Código](jogo-star-wars/index.html)
+  - [Ver Projeto](https://elainefs.github.io/programador-web-ifto-2023/modulo-06/jogo-star-wars)
