@@ -10,6 +10,14 @@ body {
   height: 100%;
 }
 
+#soundtrack {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  display: none;
+}
+
 #panel > h5 {
   font-size: 2em;
   color: #ff0000;
