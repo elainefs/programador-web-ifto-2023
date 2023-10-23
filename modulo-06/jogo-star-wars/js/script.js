@@ -10,11 +10,16 @@ const laserAcceleration = 3;
 const laserDelay = 20;
 let interval;
 
+let soundtrack = document.getElementById("soundtrack");
+soundtrack.volume = 0.2;
+
 screen.addEventListener("keyup", function (event) {
   if (event.key == "Enter") {
     game.isPause() ? game.start() : game.pause("Pause");
+    soundtrack.play();
   } else if (event.key == "p") {
     game.pause("Pause");
+    soundtrack.pause();
   }
   if (!game.isPause()) {
     if (event.key == " ") {
@@ -96,6 +101,7 @@ function Game() {
 
   this.gameOver = () => {
     this.pause("Game Over");
+    soundtrack.pause();
     screen.addEventListener("keyup", function (event) {
       if (event.key == "Enter") {
         location.reload();
