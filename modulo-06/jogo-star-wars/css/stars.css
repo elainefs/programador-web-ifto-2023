@@ -1710,11 +1710,17 @@ body {
   z-index: 2;
 }
 
+
+@font-face {
+  font-family: "Star Wars";
+  src: url("../assets/fonts/Starjhol.ttf") format("truetype");
+}
+
 h4 {
   font-size: 8rem;
   margin: 0;
   color: #fff;
-  font-family: Monoton;
+  font-family: "Star Wars";
   -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
   -moz-animation: neon1 1.5s ease-in-out infinite alternate;
   animation: neon1 1.5s ease-in-out infinite alternate;

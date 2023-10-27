@@ -42,6 +42,7 @@ screen.addEventListener("keydown", function (event) {
 });
 
 function Game() {
+  const pageWrapper = document.querySelector('.page-wrapper');
   const panel = document.getElementById("panel");
   const scoreboard = document.getElementById("scoreboard");
   const panelMsg = document.querySelector(".msg");
@@ -91,6 +92,7 @@ function Game() {
   };
 
   this.pause = (msg = "") => {
+    pageWrapper.style.zIndex = '7';
     panel.style.display = "block";
     panelMsg.style.display = "block";
     panelMsg.textContent = msg;
@@ -101,6 +103,7 @@ function Game() {
 
   this.gameOver = () => {
     this.pause("Game Over");
+    pageWrapper.style.zIndex = '7';
     soundtrack.pause();
     screen.addEventListener("keyup", function (event) {
       if (event.key == "Enter") {
