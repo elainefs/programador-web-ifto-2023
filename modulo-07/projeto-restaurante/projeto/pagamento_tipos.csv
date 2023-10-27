@@ -1,0 +1,6 @@
+id,descricao,criacao_data,alteracao_data,exclusao_data
+1,Dinheiro,NULL,NULL,NULL
+2,"Cartão de Crédito",NULL,NULL,NULL
+3,"Cartão de Débito",NULL,NULL,NULL
+4,Pix,NULL,NULL,NULL
+5,"Promoção da Loja",NULL,NULL,NULL
