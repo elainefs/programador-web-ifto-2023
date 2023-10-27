@@ -2,14 +2,19 @@ let vez = "X";
 let start = true;
 const jogo = document.querySelector("table");
 const textvez = document.querySelector("h1");
+
+function trocarVez() {
+  vez = vez == "X" ? "O" : "X";
+  textvez.textContent = `Vez do ${vez}`;
+}
+
 jogo.addEventListener("click", function (event) {
   const clicado = event.target;
   const fundo = clicado.parentNode.querySelector(".fundo");
   if (clicado.textContent == "" && start) {
     clicado.textContent = vez;
     fundo.textContent = "";
-    vez = vez == "X" ? "O" : "X";
-    textvez.textContent = `Vez do ${vez}`;
+    trocarVez();
     start = !calcularResultado();
     if (start) {
       computador();
@@ -78,10 +83,13 @@ function colorir(element) {
 function computador() {
   let apostas = jogo.querySelectorAll("td .content");
   let position = Math.round(Math.random() * 8);
+  // TODO: sorteie um jogo possível e armazene
+  // TODO: verifique se esse jogo ainda é possível, se não sorteie outro, caso não existam mais jogos possíveis marque aleatoriamente
+  // TODO: marque uma das casas do jogo pretendido
   if (apostas[position].textContent == "") {
     apostas[position].textContent = vez;
     apostas[position].parentNode.querySelector(".fundo").textContent = "";
-    vez = vez == "X" ? "O" : "X";
+    trocarVez();
     return true;
   } else {
     return computador();
