@@ -16,6 +16,7 @@ Repositório com conteúdo e projetos desenvolvidos durante o curso FIC Programa
 |Coordenadas com Mouse|[💻](https://github.com/elainefs/programador-web-ifto-2023/blob/main/modulo-06/coordenadas-mouse/index.html)|[🌐](https://elainefs.github.io/programador-web-ifto-2023/modulo-06/coordenadas-mouse)|
 |Coordenadas com Teclado|[💻](https://github.com/elainefs/programador-web-ifto-2023/blob/main/modulo-06/coordenadas-teclado/index.html)|[🌐](https://elainefs.github.io/programador-web-ifto-2023/modulo-06/coordenadas-teclado)|
 |Jogo Star Wars|[💻](https://github.com/elainefs/programador-web-ifto-2023/blob/main/modulo-06/jogo-star-wars/index.html)|[🌐](https://elainefs.github.io/programador-web-ifto-2023/modulo-06/jogo-star-wars)|
+|Gerenciador de Restaurante|[💻](https://github.com/elainefs/programador-web-ifto-2023/tree/main/projeto-restaurante)|[🌐](https://github.com/elainefs/programador-web-ifto-2023/tree/main/projeto-restaurante)|
 
 ## 📄 Licença
 
